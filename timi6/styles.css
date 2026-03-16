@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-content: space-around;
+    flex-wrap: wrap;
+}
+
+.box1 {
+    display: flex;
+    background-color: red;
+    padding: 16px;
+    
+}
+
+.box2{
+    display: flex; 
+    background-color: yellow; 
+    padding: 16px;
+}
+
+.box3{
+    display: flex; 
+    background-color: green; 
+    padding: 16px;
+}
