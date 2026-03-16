@@ -1,15 +1,26 @@
 .container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     flex-direction: column;
     align-content: space-around;
     flex-wrap: wrap;
+}
+.box {
+    width: 100px;
+    height: 100px;
+    border: 10px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .box1 {
     display: flex;
     background-color: red;
     padding: 16px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-grow: 2;
     
 }
 
@@ -17,6 +28,7 @@
     display: flex; 
     background-color: yellow; 
     padding: 16px;
+    flex-direction:  row-reverse;
 }
 
 .box3{
@@ -29,6 +41,7 @@
     display: flex; 
     background-color: blue; 
     padding: 16px;
+    flex-grow: 2
 }
 
 .box5{
