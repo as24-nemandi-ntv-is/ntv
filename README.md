@@ -1,4 +1,1 @@
-ntv forritun 
-
-Available
-4
+ntv forritun
