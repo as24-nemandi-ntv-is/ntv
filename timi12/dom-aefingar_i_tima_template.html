@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="is">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Æfingar - Byrjendur</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        line-height: 1.6;
+      }
+      section {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+      }
+      button {
+        margin-top: 10px;
+      }
+      ul {
+        list-style-type: disc;
+        margin-left: 20px;
+      }
+      input {
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>DOM Æfingar – Byrjendur</h1>
+
+    <section id="ex1">
+      <h2>Æfing 1 – Finna element</h2>
+      <h3 id="title">Velkomin!</h3>
+      <p class="intro">Þetta er texti.</p>
+      <button id="ex2-run">Breyta texta</button>
+
+      <script>
+        //    Setja kóða hér
+      </script>
+    </section>
+
+    <section id="ex2">
+      <h2>Æfing 2 – Breyta DOM</h2>
+      <ul id="list">
+        <li>Eitt</li>
+        <li>Tveir</li>
+      </ul>
+      <button id="prepend">Bæta fremst</button>
+      <button id="append">Bæta aftast</button>
+      <button id="reverse">Snúa við</button>
+      <script>
+        //    Setja kóða hér
+        const list = document.getElementById('list');
+        const prependButton = document.getElementById("prepend");
+        const appendButton = document.getElementById("append");
+        const reverseButton = document.getElementById("reverse");
+        prependButton.addEventListener("click", function() {
+          const newItem = document.createElement('li');
+          newItem.textContent = 'Nýr listi fremst';
+          list.prepend(newItem);
+        });
+        appendButton.addEventListener("click", function() {
+          const newItem = document.createElement('li');
+          newItem.textContent = 'Nýr listi aftast';
+          list.append(newItem);
+        });
+        reverseButton.addEventListener("click", function() {
+          const items = Array.from(list.getElementsByTagName('li'));
+          items.reverse();
+          console.log('reversed : ' + items)
+          items.array.forEach(element => 
+            list.appendChild(element)
+          );
+        });
+      </script>
+    </section>
+
+    <section id="ex3">
+      <h2>Æfing 3 – DOM Events</h2>
+      <button id="clickBtn">Smelltu á mig</button>
+      <p id="status"></p>
+      <script>
+        //    Setja kóða hér
+        btn = document.getElementById('clickBtn');
+        btn.onclick = function() {
+          alert('Vel gert! þú smelltir á takkann!!')
+        }
+      </script>
+    </section>
+
+    <section id="ex4">
+      <h2>Æfing 4 – Litaskiptari</h2>
+      <button id="color">Breyta lit</button>
+      <script>
+        //    Setja kóða hér
+        const colorBtn = document.getElementById('color')
+        colorBtn.onclick = function () {
+          newColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6,'0');
+          document.body.style.backgroundColor = newColor;
+        }
+      </script>
+    </section>
+
+    <section id="ex5">
+      <h2>Æfing 5 – To-Do listi</h2>
+      <input id="task" placeholder="Nýtt verkefni" />
+      <button id="addTask">Bæta við</button>
+      <ul id="todo"></ul>
+      <script>
+        //    Setja kóða hér
+      </script>
+    </section>
+
+    <section id="ex6">
+      <h2>Æfing 6 – Teljari (+/−/reset)</h2>
+      <p>Gildi: <span id="ex6-val">0</span></p>
+      <button id="ex6-dec">−</button>
+      <button id="ex6-inc">+</button>
+      <button id="ex6-reset">Endurstilla</button>
+      <script>
+        //    Setja kóða hér
+      </script>
+    </section>
+
+    <section id="ex7">
+      <h2>Æfing 7 – Leita í lista</h2>
+      <input id="ex7-search" placeholder="Leita..." />
+      <ul id="ex7-list">
+        <li>Anna</li>
+        <li>Birna</li>
+        <li>Jón</li>
+        <li>Kári</li>
+        <li>Sara</li>
+      </ul>
+      <script>
+        //    Setja kóða hér
+        nameList = document.getElementById('ex7-list');
+        const items = Array.from(document.querySelectorAll(nameList))
+        function search (e) {
+          const value = e.srcElement.value;
+          items.forEach((li) => {
+            const match = li.textContent.toLowerCase().includes(value);
+            li.style.display = match ? "list-item" : "none"
+          });
+        }
+      </script>
+    </section>
+
+    <section id="ex8">
+      <h2>Æfing 8 – Þemuskiptir (ljóst/dökkt)</h2>
+      <button id="ex8-theme">Skipta um þema</button>
+      <script>
+        //    Setja kóða hér
+        let dark = false;
+        function changeTheme() {
+          dark = !dark;
+          if (dark) {
+            
+          }
+        }
+      </script>
+    </section>
+  </body>
+</html>

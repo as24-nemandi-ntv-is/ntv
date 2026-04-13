@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="is">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tímaverkefni – DOM æfingar</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        line-height: 1.6;
+      }
+      section {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+      }
+      button {
+        margin-top: 10px;
+      }
+      ul {
+        list-style-type: disc;
+        margin-left: 20px;
+      }
+      input {
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tímaverkefni – Nýjar DOM æfingar</h1>
+
+    <section id="ex1">
+      <h2>Æfing 1 – Samfallandi spurningar (Accordion)</h2>
+      <button class="q" onclick="toggleAnswer(this)">Hvað er DOM?</button>
+      <div class="a" style="display: none">Svar hér…</div>
+      <button class="q" onclick="toggleAnswer(this)">Hvað er event?</button>
+      <div class="a" style="display: none">Svar hér…</div>
+      <script>
+        // TODO:
+        // 1) Finndu alla .q takka, bættu on click event sem sýnir/felur næsta systkini (.a)
+        //    með því að toggla t.d. element.style.display = 'none' / 'block'.
+        function toggleAnswer(button) {
+          // Bæta kóða hér
+          const button = e.target;
+          const answer = button.nextElementSibling;
+          if (!answer) return;
+          const isHidden = 
+            answer.style.display === "none" || !answer.style.display;
+          
+        }
+      </script>
+    </section>
+
+    <section id="ex2">
+      <h2>Æfing 2 – Stafafjöldi og hámark</h2>
+      <textarea
+        id="msg"
+        rows="4"
+        placeholder="Skrifaðu skilaboð…"
+        oninput="updateCount()"
+      ></textarea>
+      <p><span id="count">0</span>/100</p>
+      <script>
+        // TODO:
+        // Á "oninput": uppfærðu #count með fjölda stafa í #msg.
+        // Ef length > 100: lita textann rauðan og banna fleiri stafi (t.d. með substring(0, MAX); þar sem MAX = 100).
+        const MAX = 5;
+        const inputArea = document.getElementById('msg');
+        let length = 0;
+        
+        inputArea.addEventListener('input' , function() {
+          length = inputArea.value.length;
+          updateCount(length)
+          console.log('text length is : ' + length);
+         
+        });
+        
+        function updateCount(length=0) {
+          // Bæta kóða hér
+          const counter = document.getElementById('count');
+
+          if (length > MAX) {
+            console.log('WARNING TO LONG TEXT');
+            inputArea.style.color = 'red';
+            counter.textContent=length;
+            counter.style.color = 'red';
+            counter.style.fontSize = "50px";
+            let allowedText = inputArea.value.substring(0,MAX);
+            inputArea.value = allowedText;
+          }
+
+          let messageLength = 50;
+          counter.textContent.value = messageLength;
+        }
+      </script>
+    </section>
+
+    <section id="ex3">
+      <h2>Æfing 3 – Stoppuúr</h2>
+      <p id="time">00:00.0</p>
+      <button id="start" onclick="start()">Start</button>
+      <button id="stop" onclick="pause()">Stop</button>
+      <button id="reset" onclick="resetTimer()">Reset</button>
+      <script>
+        // TODO:
+        // 1) Bæta við start() stop() og resetTimer() föll, notið setInterval til að telja fram og uppfæra #time.
+        /// Þetta fall mun formatta tímann í mm:ss.tt
+        let timerId = null;
+        let tenths = 0; // 1 tenth = 100 ms
+
+        function showTime() {
+          const totalSeconds = Math.floor(tenths / 10);
+          const minutes = Math.floor(totalSeconds / 60);
+          const seconds = totalSeconds % 60;
+          const mm = String(minutes).padStart(2, "0");
+          const ss = String(seconds).padStart(2, "0");
+          document.getElementById("time").textContent = `${mm}:${ss}.${
+            tenths % 10
+          }`;
+          function tick() {
+            tenths++;
+            showTime();
+          }
+          /// Bæðtið fyrir neðan
+
+          ////  Bætið fyrir ofan
+
+          showTime();
+        }
+      </script>
+    </section>
+    <section id="ex4">
+      <h2>Æfing 4 – Flipar (Tabs)</h2>
+      <div>
+        <button data-tab="one">Flipi 1</button>
+        <button data-tab="two">Flipi 2</button>
+        <button data-tab="three">Flipi 3</button>
+      </div>
+      <div id="panel-one">Efni fyrir flipa 1</div>
+      <div id="panel-two" style="display: none">Efni fyrir flipa 2</div>
+      <div id="panel-three" style="display: none">Efni fyrir flipa 3</div>
+      <script>
+        // TODO:
+        // 1) Á click á flipa: fela alla panela og sýna aðeins réttan (#panel-one/two/three)
+        //    með display-stíl, byggt á data-tab attribute.
+      </script>
+    </section>
+
+    <section id="ex5">
+      <h2>Æfing 5 – Draga box</h2>
+      <div
+        id="area"
+        style="position: relative; height: 160px; border: 1px dashed #999"
+      >
+        <div
+          id="box"
+          style="
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            width: 40px;
+            height: 40px;
+            background: #10b981;
+          "
+        ></div>
+      </div>
+      <script>
+        // TODO:
+        // 1) Á mousedown á #box: byrja hlustun á mousemove á document og færa box (left/top) m.v. hvar músin er.
+        // 2) Á mouseup: hætta að hlusta.
+        // 3) Mundu að halda kassanum innan #area (min/max mörk).
+      </script>
+    </section>
+
+    <section id="ex6">
+      <h2>Æfing 6 – RGB sleðar</h2>
+      <input id="r" type="range" min="0" max="255" value="128" /> R
+      <input id="g" type="range" min="0" max="255" value="128" /> G
+      <input id="b" type="range" min="0" max="255" value="128" /> B
+      <div
+        id="preview"
+        style="width: 120px; height: 60px; border: 1px solid #ccc"
+      ></div>
+      <p id="preview-rgb"></p>
+      <script>
+        // TODO:
+        // 1) Ná í value af öllum sleðum og setja það í rgb(r,g,b) sem backgroundColor á #preview.
+        // 2) Sýna jafnvel núverandi gildi á rgb og birta það  í <p>.
+      </script>
+    </section>
+  </body>
+</html>
