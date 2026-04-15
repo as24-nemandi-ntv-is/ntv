@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section>
+      <h2>Verkefni 1 – Notendalistinn</h2>
+      <p id="status">Hleð gögn...</p>
+      <ul id="user-list"></ul>
+
+      <script src="api.js">
+        // TODO:
+        // Ná í gögning og birta nöfn ásamt netföngum
+        getUsers;
+
+      </script>
+    </section>
+    <section>
+      <h2>Verkefni 2 – Notendaleit</h2>
+      <input id="userId" placeholder="Sláðu inn ID (1–10)" />
+      <button onclick="getUser()">Leita</button>
+      <p id="status"></p>
+      <div id="user-info"></div>
+
+      <script>
+        // TODO:
+        // Ná í gögning útfrá id sem kemur úr input (sækja það með getelementbyid) og birta nöfn ásamt netföngum
+        //  url: `https://jsonplaceholder.typicode.com/users/${id}`
+        //  id eru 1-10 ef að user situr inn eh annað id sem er ekki til þá eigið að birta error message t.d. Notandi finnst ekki
+      </script>
+    </section>
+    <section>
+      <h2>Verkefni 3 – Póstalisti</h2>
+      <button id="more">Sjá meira</button>
+      <ul id="post-list"></ul>
+      <p id="status"></p>
+
+      <script>
+        let posts = [];
+        let visibleCount = 5;
+        // TODO:;
+        // Ná í gögn útfrá url: `https://jsonplaceholder.typicode.com/posts` og birta titla, ef að notandi ýtir
+        //  á "more" button þá skal birta 5 næstu gögnin með því að bæta við 5 í visibleCount og kalla aftur í render posts
+        async function getPosts() {
+          //  ná í posts hér með fetch
+
+
+          function renderPosts() {
+            // TODO:
+            // render posts hér inn í post-list, notið .slice(0, visibleCount) á pósta sem þið fetchið
+            //  til að fá aðeins það sem þarf og for each til að birta hvert eintak
+            //  og create element "li" til að birta titla í listann
+            //  og append til að bæta við listann
+          }
+
+          document.getElementById("more").addEventListener("click", () => {
+            // TODO:
+            // bæta við 5 í visibleCount og kalla aftur í render posts
+          });
+        }
+
+        getPosts();
+      </script>
+    </section>
+    <section>
+      <h2>Verkefni 4 – Pokémon Browser</h2>
+      <input id="pokeName" placeholder="Sláðu inn Pokémon nafn" />
+      <button onclick="getPokemon()">Sækja</button>
+      <p id="status"></p>
+      <div id="pokemon"></div>
+
+      <script>
+        /// TODO:
+        // Ná í gögn útfrá url: `https://pokeapi.co/api/v2/pokemon/${name}` og birta nöfn, myndir, hæð og þyngd
+        //  name er input sem kemur úr input (sækja það með getelementbyid) og birta nöfn, myndir, hæð og þyngd
+        //  url: `https://pokeapi.co/api/v2/pokemon/${name}`
+        //  name eru Pokemon nöfn sem eru í pokemon api
+        //  ef að notandi slær inn annað en Pokemon nafn sem er ekki til þá eigið að birta error message t.d. Pokemon fannst ekki
+      </script>
+    </section>
+    <section>
+      <h2>Verkefni 5 – Veðurforrit</h2>
+      <p id="status">Hleð veðri...</p>
+      <div id="weather"></div>
+
+      <script>
+        async function getWeather() {
+          // TODO:
+          // ná í veðri útfrá url: `https://api.open-meteo.com/v1/forecast?latitude=64.13&longitude=-21.9&current_weather=true` og birta hiti og vindhraði
+          //  current_weather er boolean sem er true ef að notandi vill sjá núverandi veðri
+          //  url: `https://api.open-meteo.com/v1/forecast?latitude=64.13&longitude=-21.9&current_weather=true`
+          //
+        }
+
+        getWeather();
+      </script>
+    </section>
+  </body>
+</html>
