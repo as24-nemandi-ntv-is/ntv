@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="is">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Debugging Æfingar</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #2d1b69 0%, #11998e 100%);
+        min-height: 100vh;
+        padding: 20px;
+        color: #fff;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 2.2em;
+      }
+
+      .intro {
+        text-align: center;
+        margin-bottom: 30px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .aefing {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 25px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .aefing h2 {
+        color: #ffd700;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .difficulty {
+        font-size: 0.6em;
+        padding: 3px 10px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .difficulty.easy {
+        background: #27ae60;
+      }
+      .difficulty.medium {
+        background: #f39c12;
+      }
+      .difficulty.hard {
+        background: #e74c3c;
+      }
+
+      .lýsing {
+        background: rgba(0, 0, 0, 0.2);
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        border-left: 4px solid #ffd700;
+      }
+
+      .lýsing p {
+        margin-bottom: 10px;
+      }
+
+      .lýsing strong {
+        color: #ffd700;
+      }
+
+      button {
+        background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+        color: #1a1a2e;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1em;
+        transition: all 0.3s ease;
+        margin: 5px;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+      }
+
+      .output {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        padding: 15px;
+        margin-top: 15px;
+        min-height: 50px;
+        font-family: "Courier New", monospace;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      input[type="text"],
+      input[type="number"] {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid #ffd700;
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-size: 1em;
+        margin: 5px;
+        width: 150px;
+      }
+
+      input:focus {
+        outline: none;
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+      }
+
+      ul.items {
+        list-style: none;
+        padding: 0;
+      }
+
+      ul.items li {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 10px 15px;
+        margin: 5px 0;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .hint {
+        background: rgba(255, 215, 0, 0.1);
+        border: 1px dashed #ffd700;
+        border-radius: 8px;
+        padding: 15px;
+        margin-top: 15px;
+        display: none;
+      }
+
+      .hint.show {
+        display: block;
+      }
+
+      .hint-toggle {
+        background: transparent;
+        border: 1px solid #ffd700;
+        color: #ffd700;
+        padding: 8px 15px;
+        font-size: 0.9em;
+      }
+
+      .hint-toggle:hover {
+        background: rgba(255, 215, 0, 0.1);
+      }
+
+      .success {
+        color: #2ecc71;
+        font-weight: bold;
+      }
+
+      .error {
+        color: #e74c3c;
+      }
+
+      .code-hint {
+        background: #1a1a2e;
+        padding: 10px;
+        border-radius: 5px;
+        font-family: monospace;
+        margin: 10px 0;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🐛 Debugging Æfingar</h1>
+      <p class="intro">
+        Finndu og lagaðu villurnar! Notaðu DevTools til að hjálpa þér.
+      </p>
+
+      <!-- ==================== ÆFING 1 ==================== -->
+      <div class="aefing">
+        <h2>
+          Æfing 1: Hvað er að?
+          <span class="difficulty easy">Auðvelt</span>
+        </h2>
+
+        <div class="lýsing">
+          <p>
+            <strong>Vandamál:</strong> Takkinn á að sýna "Halló heimur!" en
+            ekkert gerist.
+          </p>
+          <p>
+            <strong>Verkefni:</strong> Notaðu DevTools til að finna villuna og
+            lagaðu hana.
+          </p>
+        </div>
+
+        <button onclick="heilsa()">Segðu halló</button>
+        <div class="output" id="output1">Skilaboð birtast hér...</div>
+
+        <button class="hint-toggle" onclick="toggleHint(1)">
+          💡 Vísbending
+        </button>
+        <div class="hint" id="hint1">
+          <p>
+            <strong>Vísbending:</strong> Skoðaðu Console. Villan segir þér
+            nákvæmlega hvað er að.
+          </p>
+          <p>Leitaðu að stafsetningarvillu í fallinu.</p>
+        </div>
+      </div>
+
+      <!-- ==================== ÆFING 2 ==================== -->
+      <div class="aefing">
+        <h2>
+          Æfing 2: Reiknivélin sem reiknar ekki rétt
+          <span class="difficulty easy">Auðvelt</span>
+        </h2>
+
+        <div class="lýsing">
+          <p>
+            <strong>Vandamál:</strong> Reiknivélin gefur skrýtnar niðurstöður.
+            Ef þú slærð inn 5 + 3 færðu "53" í stað 8.
+          </p>
+          <p>
+            <strong>Verkefni:</strong> Notaðu console.log() og typeof til að
+            finna vandamálið.
+          </p>
+        </div>
+
+        <input type="text" id="tala1" placeholder="Tala 1" />
+        <input type="text" id="tala2" placeholder="Tala 2" />
+        <button onclick="leggja_saman()">Leggja saman</button>
+        <div class="output" id="output2">Niðurstaða birtist hér...</div>
+
+        <button class="hint-toggle" onclick="toggleHint(2)">
+          💡 Vísbending
+        </button>
+        <div class="hint" id="hint2">
+          <p>
+            <strong>Vísbending:</strong> Notaðu
+            <code>console.log(typeof tala1)</code> til að sjá hvaða tegund talan
+            er.
+          </p>
+          <p>Input svæði gefa alltaf <em>strengi</em>, ekki tölur.</p>
+          <div class="code-hint">
+            // Lausn: Umbreyta í tölu<br />
+            const tala = parseInt(input.value);<br />
+            // eða<br />
+            const tala = Number(input.value);
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== ÆFING 3 ==================== -->
+      <div class="aefing">
+        <h2>
+          Æfing 3: Listi sem eyðir ekki
+          <span class="difficulty medium">Miðlungs</span>
+        </h2>
+
+        <div class="lýsing">
+          <p>
+            <strong>Vandamál:</strong> Þegar þú smellir á "Eyða" takkann,
+            hverfur rangt item eða ekkert gerist.
+          </p>
+          <p>
+            <strong>Verkefni:</strong> Skoðaðu fallið <code>eydaItem()</code> og
+            finndu villuna.
+          </p>
+        </div>
+
+        <ul class="items" id="lista3">
+          <li>Epli <button onclick="eydaItem(this)">Eyða</button></li>
+          <li>Banani <button onclick="eydaItem(this)">Eyða</button></li>
+          <li>Appelsína <button onclick="eydaItem(this)">Eyða</button></li>
+        </ul>
+        <div class="output" id="output3">
+          Smelltu á Eyða til að fjarlægja item
+        </div>
+
+        <button class="hint-toggle" onclick="toggleHint(3)">
+          💡 Vísbending
+        </button>
+        <div class="hint" id="hint3">
+          <p>
+            <strong>Vísbending:</strong> Vandamálið er að index breytist þegar
+            items er eytt.
+          </p>
+          <p>
+            Betri lausn er að nota <code>this</code> til að finna rétt element:
+          </p>
+          <div class="code-hint">
+            // Í HTML:<br />
+            onclick="eydaItem(this)"<br /><br />
+            // Í JavaScript:<br />
+            function eydaItem(button) {<br />
+            &nbsp;&nbsp;button.parentElement.remove();<br />
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== ÆFING 4 ==================== -->
+      <div class="aefing">
+        <h2>
+          Æfing 4: Talningin sem stoppar ekki
+          <span class="difficulty medium">Miðlungs</span>
+        </h2>
+
+        <div class="lýsing">
+          <p>
+            <strong>Vandamál:</strong> Talningin á að fara frá 1 upp í 10, en
+            hún stoppar aldrei!
+          </p>
+          <p>
+            <strong>Verkefni:</strong> Skoðaðu lykkjuna og finndu hvers vegna
+            hún endar aldrei.
+          </p>
+          <p>
+            ⚠️ <strong>Varúð:</strong> Þetta mun frysta síðuna! Vertu með
+            DevTools opið.
+          </p>
+        </div>
+
+        <button onclick="talning()">Byrja talningu</button>
+        <div class="output" id="output4">Bíður...</div>
+
+        <button class="hint-toggle" onclick="toggleHint(4)">
+          💡 Vísbending
+        </button>
+        <div class="hint" id="hint4">
+          <p>
+            <strong>Vísbending:</strong> Skoðaðu skilyrðið í while lykkjunni og
+            hvernig <code>i</code> breytist.
+          </p>
+          <p>Hvað gerist ef þú setur breakpoint inní lykkjunni?</p>
+          <div class="code-hint">
+            // Vandamálið: i er alltaf <= 10<br />
+            // Af hverju? Því i-- minnkar töluna!<br />
+            // Lausn: Breyta í i++
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== ÆFING 5 ==================== -->
+      <div class="aefing">
+        <h2>
+          Æfing 5: API gögnin birtast ekki
+          <span class="difficulty medium">Miðlungs</span>
+        </h2>
+
+        <div class="lýsing">
+          <p>
+            <strong>Vandamál:</strong> Forritið sækir gögn af netinu en þau
+            birtast ekki rétt.
+          </p>
+          <p>
+            <strong>Verkefni:</strong> Notaðu Network flipann og Console til að
+            finna vandamálið.
+          </p>
+        </div>
+
+        <button onclick="saekjaNotanda()">Sækja notanda</button>
+        <div class="output" id="output5">Notandi birtist hér...</div>
+
+        <button class="hint-toggle" onclick="toggleHint(5)">
+          💡 Vísbending
+        </button>
+        <div class="hint" id="hint5">
+          <p>
+            <strong>Vísbending:</strong> Notaðu
+            <code>console.log(data)</code> til að sjá gögnin sem koma til baka.
+          </p>
+          <p>
+            Svo: Berðu saman property nöfnin við það sem kóðinn reynir að sækja.
+          </p>
+          <div class="code-hint">
+            // Gögnin hafa: data.name<br />
+            // Kóðinn reynir: data.nafn<br />
+            // Property nöfnin passa ekki!
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== ÆFING 6 ==================== -->
+      <div class="aefing">
+        <h2>
+          Æfing 6: CSS sem virkar ekki
+          <span class="difficulty easy">Auðvelt</span>
+        </h2>
+
+        <div class="lýsing">
+          <p>
+            <strong>Vandamál:</strong> Þegar þú smellir á boxið ætti það að
+            verða stærra og breyta lit, en ekkert gerist.
+          </p>
+          <p>
+            <strong>Verkefni:</strong> Notaðu Elements flipann til að sjá hvort
+            CSS class-inn er raunverulega settur á.
+          </p>
+        </div>
+
+        <div
+          id="box6"
+          style="
+            width: 100px;
+            height: 100px;
+            background: #3498db;
+            margin: 20px auto;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+          "
+          onclick="stækka()"
+        ></div>
+        <p style="text-align: center; color: rgba(255, 255, 255, 0.6)">
+          Smelltu á boxið
+        </p>
+
+        <button class="hint-toggle" onclick="toggleHint(6)">
+          💡 Vísbending
+        </button>
+        <div class="hint" id="hint6">
+          <p>
+            <strong>Vísbending:</strong> Skoðaðu Elements flipann eftir að þú
+            smellir. Er class-inn bætt við?
+          </p>
+          <p>
+            Ef já, skoðaðu svo CSS-ið í &lt;style&gt; taginu. Er ".staekka"
+            stíllinn rétt skilgreindur?
+          </p>
+        </div>
+      </div>
+
+      <!-- ==================== ÆFING 7 ==================== -->
+      <div class="aefing">
+        <h2>
+          Æfing 7: Formið sem sendir ekki
+          <span class="difficulty hard">Erfitt</span>
+        </h2>
+
+        <div class="lýsing">
+          <p>
+            <strong>Vandamál:</strong> Þegar þú fyllir út formið og smellir á
+            "Skrá" ætti skilaboð að birtast, en síðan refreshast í staðinn.
+          </p>
+          <p>
+            <strong>Verkefni:</strong> Þetta er klassískt vandamál! Finndu
+            hvernig á að stöðva default hegðun forms.
+          </p>
+        </div>
+
+        <form id="form7" onsubmit="sendsForm()">
+          <input type="text" id="nafnInput" placeholder="Nafn" required />
+          <input type="text" id="emailInput" placeholder="Email" required />
+          <button type="submit">Skrá</button>
+        </form>
+        <div class="output" id="output7">Skráning birtist hér...</div>
+
+        <button class="hint-toggle" onclick="toggleHint(7)">
+          💡 Vísbending
+        </button>
+        <div class="hint" id="hint7">
+          <p>
+            <strong>Vísbending:</strong> Form elements hafa "default behavior" -
+            þau refresha síðuna.
+          </p>
+          <p>Þú þarft að stöðva það með <code>event.preventDefault()</code></p>
+          <div class="code-hint">
+            function sendaForm(event) {<br />
+            &nbsp;&nbsp;event.preventDefault(); // Stöðva refresh<br />
+            &nbsp;&nbsp;// Restin af kóðanum...<br />
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== ÆFING 8 ==================== -->
+      <div class="aefing">
+        <h2>
+          Æfing 8: Async/Await ruglið
+          <span class="difficulty hard">Erfitt</span>
+        </h2>
+
+        <div class="lýsing">
+          <p>
+            <strong>Vandamál:</strong> Fallið á að sækja 3 notendur og sýna nöfn
+            þeirra, en það virkar ekki.
+          </p>
+          <p>
+            <strong>Verkefni:</strong> Skoðaðu Console vandlega og notaðu
+            breakpoints til að skilja execution order.
+          </p>
+        </div>
+
+        <button onclick="saekjaNotendur()">Sækja 3 notendur</button>
+        <div class="output" id="output8">Notendur birtast hér...</div>
+
+        <button class="hint-toggle" onclick="toggleHint(8)">
+          💡 Vísbending
+        </button>
+        <div class="hint" id="hint8">
+          <p>
+            <strong>Vísbending:</strong> Athugaðu hvort fallið er
+            <code>async</code> og hvort <code>await</code> er notað rétt.
+          </p>
+          <p>Console.log er keyrt ÁÐUR en gögnin eru komin ef await vantar.</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ==================== ÆFING 1 ====================
+      function heilsa() {
+        const output = document.getElementById("output1");
+        output.innerHTML = "Halló heimur! 👋";
+      }
+
+      // ==================== ÆFING 2 ====================
+      function leggja_saman() {
+        const tala1 = Number(document.getElementById("tala1").value); ;
+        const tala2 = Number(document.getElementById("tala2").value);
+        console.log('tala1 : ' + tala1);
+        console.log('tala2 : ' + tala2);
+        
+        const nidurstada = tala1 + tala2;
+
+        document.getElementById("output2").innerHTML =
+          "Niðurstaða: " + nidurstada;
+      }
+
+      // ==================== ÆFING 3 ====================
+      function eydaItem(button) {
+        const listi = document.getElementById("lista3");
+        const items = listi.getElementsByTagName("li");
+        console.log('listi : ' + listi);
+        console.log('items : ' + items);
+       
+        button.parentElement.remove();
+      }
+
+      // ==================== ÆFING 4 ====================
+      function talning() {
+        const output = document.getElementById("output4");
+        let result = "";
+        let i = 1;
+
+        while (i <= 20) {
+          result += i + " ";
+          i++;
+        }
+
+        output.innerHTML = "hallo";
+        output.outerHTML = result;
+      }
+
+      // ==================== ÆFING 5 ====================
+      async function saekjaNotanda() {
+        const output = document.getElementById("output5");
+        output.innerHTML = "Sæki gögn...";
+
+        try {
+          const response = await fetch(
+            "https://jsonplaceholder.typicode.com/users/1"
+          
+          );
+          console.log("response", response);
+          if (!response.ok) {
+            throw new Error(`Http error! status: ${response.status}'`);
+          } else console.log("response is OK");
+          const data = await response.json();
+          console.log("user ", data);
+          console.log(data);
+          console.log('data.name:');
+          console.log(data.name);
+
+          output.innerHTML = `
+                    <strong>Nafn:</strong> ${data.name}<br>
+                    <strong>Email:</strong> ${data.email}<br>
+                    <strong>Sími:</strong> ${data.phone}
+                `;
+        } catch (error) {
+          output.innerHTML = "Villa: " + error.message;
+        }
+      }
+
+      saekjaNotanda();
+
+      // ==================== ÆFING 6 ====================
+      function stækka() {
+        const box = document.getElementById("box6");
+        let randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+        box.style.backgroundColor = randomColor;
+
+        const scale = Math.random() * (1.5 - 0.5) + 0.5; // Random scale between 0.5x and 1.5x
+        box.style.width = (originalWidth * 4) + 'px';
+        box.style.height = (originalHeight * 4) + 'px';
+        
+        box.classList.toggle("staekka");
+      }
+
+      // ==================== ÆFING 7 ====================
+      function sendsForm() {
+        const nafn = document.getElementById("nafnInput").value;
+        const email = document.getElementById("emailInput").value;
+
+        document.getElementById("output7").innerHTML = `
+                <span class="success">✅ Skráning móttekin!</span><br>
+                Nafn: ${nafn}<br>
+                Email: ${email}
+            `;
+      }
+
+      // ==================== ÆFING 8 ====================
+      function saekjaNotendur() {
+        const output = document.getElementById("output8");
+        output.innerHTML = "Sæki notendur...";
+
+        let notendur = [];
+        
+        for (let i = 1; i <= 3; i++) {
+          fetch(
+            `https://jsonplaceholder.typicode.com/users/${i}`
+          )
+            .then((data) => data.json())
+            .then((data) => {
+              notendur.push(data);
+            });
+
+        }
+        console.log(notendur);
+
+        console.log("Notendur:", notendur);
+        output.innerHTML = "Notendur: " + notendur.join(", ");
+      }
+
+      // ==================== HINT TOGGLE ====================
+      function toggleHint(num) {
+        const hint = document.getElementById("hint" + num);
+        hint.classList.toggle("show");
+      }
+
+      // Welcome message
+      console.log(
+        "%c🐛 Debugging Æfingar",
+        "font-size: 20px; color: #ffd700; font-weight: bold;"
+      );
+      console.log("Finndu villurnar og lagaðu þær!");
+      console.log("Tip: Console segir þér oft nákvæmlega hvað er að.");
+      console.log("---");
+    </script>
+  </body>
+</html>
