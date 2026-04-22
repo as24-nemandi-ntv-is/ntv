@@ -1,0 +1,7 @@
+.musicCard {
+    background-color: blue;
+    width: fit-content;
+    padding: 16px;
+    border: black 1px solid;
+    box-shadow: 3px 0px 0px 0px;
+}
