@@ -1,5 +1,10 @@
-export function framerMotion() {
-    return <div>Framer motion síða </div>
+import CircleMotion from "../components/animations/CircleMotion";
+
+export function framerMotionPage() {
+    return <div>
+        Framer motion síða
+        <CircleMotion></CircleMotion> 
+        </div>
 }
 
-export default framerMotion;
+export default framerMotionPage;
